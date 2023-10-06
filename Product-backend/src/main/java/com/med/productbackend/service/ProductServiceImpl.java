@@ -68,10 +68,11 @@ public class ProductServiceImpl implements ProductService{
     public List<Product> searchProductByCategoryName(String cn) {
         List<Product> result = new ArrayList<>();
         List<Category> categories = categoryRepository.findByName(cn);
-        for(Category c: categories){
-            for(int i=0; i<c.getProducts().size(); i++){
-                if (c.getProducts().get(i).getQuantity()>0 ){
-                    result.add(c.getProducts().get(i));
+
+        for (Category c : categories) {
+            for (Product p : c.getProducts()) {
+                if (p.getQuantity() > 0) {
+                    result.add(p);
                 }
             }
         }

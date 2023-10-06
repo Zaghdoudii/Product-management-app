@@ -19,45 +19,39 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/products")
-    public ResponseEntity<List<Product>> getAllProducts(){
-        return ResponseEntity.ok(productService.allProducts());
-    }
-
     @GetMapping("/categories")
-    public ResponseEntity<List<Category>> getAllCategories(){
-
+    public ResponseEntity<List<Category>> getAllCategories() throws IOException{
         return ResponseEntity.ok(productService.allCategories());
     }
 
-    @GetMapping("/product/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable Long id){
-        return ResponseEntity.ok(productService.getProductById(id));
+    @GetMapping("/products")
+    public ResponseEntity<List<Product>> getAllProducts() throws IOException{
+        return ResponseEntity.ok(productService.allProducts());
     }
 
     @GetMapping("/category/{id}")
-    public ResponseEntity<Category> getCategoryById(@PathVariable Long id){
+    public ResponseEntity<Category> getCategoryById(@PathVariable Long id) throws IOException{
         return ResponseEntity.ok(productService.getCategoryById(id));
     }
 
-    @PostMapping("/product")
-    public ResponseEntity<Product> addProduct(@RequestBody Product p){
-        return ResponseEntity.ok(productService.addProduct(p));
+    @GetMapping("/product/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable Long id) throws IOException{
+        return ResponseEntity.ok(productService.getProductById(id));
     }
 
     @PostMapping("/category")
-    public ResponseEntity<Category> addCategory(@RequestBody Category c){
+    public ResponseEntity<Category> addCategory(@RequestBody Category c) throws IOException{
         return ResponseEntity.ok(productService.addCategory(c));
     }
 
-    @GetMapping("/products/search")
-    public ResponseEntity<List<Product>> searchProduct(@RequestParam("category") String cn){
-        return ResponseEntity.ok(productService.searchProductByCategoryName(cn));
+    @PostMapping("/product")
+    public ResponseEntity<Product> addProduct(@RequestBody Product p) throws IOException{
+        return ResponseEntity.ok(productService.addProduct(p));
     }
 
     // ajouter un produit a une catégorie donnée
-    @PostMapping("/categories/{cn}")
-    public ResponseEntity<Product> addProducts(@RequestBody Product product, @PathVariable String cn) {
+    @PostMapping("/product/{cn}")
+    public ResponseEntity<Product> addProducts(@RequestBody Product product, @PathVariable String cn) throws IOException {
         Category c = productService.getCategoryByName(cn);
         Product p = new Product(null, product.getName(), product.getQuantity(), product.getPrice(), c);
         List<Product> products = new ArrayList<>();
@@ -69,15 +63,22 @@ public class ProductController {
         return ResponseEntity.ok(productService.addProduct(p));
     }
 
-    @DeleteMapping("/product/{id}")
-    public HttpStatus deleteProductById(@PathVariable Long id) throws IOException {
-        productService.deleteProduct(id);
-        return HttpStatus.OK;
+
+    // get liste des produits par le nom d'une catégorie donnée
+    @GetMapping("/products/search")
+    public ResponseEntity<List<Product>> searchProduct(@RequestParam("category") String cn)throws IOException {
+        return ResponseEntity.ok(productService.searchProductByCategoryName(cn));
     }
 
     @DeleteMapping("/category/{id}")
     public HttpStatus deleteCategoryById(@PathVariable Long id) throws IOException{
         productService.deleteCategory(id);
+        return HttpStatus.OK;
+    }
+
+    @DeleteMapping("/product/{id}")
+    public HttpStatus deleteProductById(@PathVariable Long id) throws IOException {
+        productService.deleteProduct(id);
         return HttpStatus.OK;
     }
 
