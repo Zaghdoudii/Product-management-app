@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  mysqldb:
+    container_name: mysqldb
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: productdb
+    networks:
+      springboot-mysql-net:
+
+  product-back:
+    container_name: product-back
+    build:
+      context: ./Product-backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysqldb
+    networks:
+      springboot-mysql-net:
+    restart: on-failure
+
+
+  product-front:
+    build: ./Product-frontend
+    container_name: product-frontend
+    ports:
+      - 4200:80
+
+volumes:
+  data:
