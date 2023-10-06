@@ -1,6 +1,8 @@
 version: "3"
 
 services:
+
+  # Service MySQL pour la base de données
   mysqldb:
     container_name: mysqldb
     image: mysql:8.0
@@ -10,25 +12,28 @@ services:
     networks:
       springboot-mysql-net:
 
+  # Service Backend de l'application 
   product-back:
     container_name: product-back
     build:
       context: ./Product-backend
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "8080:8080"    # L'application backend est exposée sur le port 8080.
     depends_on:
       - mysqldb
     networks:
       springboot-mysql-net:
-    restart: on-failure
 
 
+  # Service Frontend de l'application
   product-front:
     build: ./Product-frontend
     container_name: product-frontend
     ports:
-      - 4200:80
+      - 4200:80         # L'application frontend est exposée sur le port 4200.
 
+      
+# Définition des volumes Docker
 volumes:
   data:
