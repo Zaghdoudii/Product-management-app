@@ -1,17 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductServiceService {
 
-  constructor(private http: HttpClient) { }
+  private domain: string | undefined ;
+
+  constructor(private http: HttpClient) {
+    this.domain=environment.domain;
+   }
 
   // recupere la liste des produits depuis l'api
   getProduct() {
-    let url = `http://localhost:8080/products`;
+    let url = `${this.domain}/products`;
     return this.http.get<any>(url);
   }
 
@@ -19,7 +24,7 @@ export class ProductServiceService {
 
   // chercher un produit par le nom du categorie en utilisant l'api
   searchProducts(category: string): Observable<any[]> {
-    let url = `http://localhost:8080/products/search?category=${category}`;
+    let url = `${this.domain}/products/search?category=${category}`;
     return this.http.get<any[]>(url);
   }
 

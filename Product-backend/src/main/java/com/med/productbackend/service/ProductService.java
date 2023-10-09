@@ -2,6 +2,7 @@ package com.med.productbackend.service;
 
 import com.med.productbackend.model.Category;
 import com.med.productbackend.model.Product;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public interface ProductService {
     void deleteProduct(Long id);
     Category getCategoryByName(String nc);
     List<Product> searchProductByCategoryName(String cn);
+
 
 
 

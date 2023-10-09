@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -61,21 +62,42 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Category getCategoryByName(String nc) {
+        // extraire le premier élément de la liste renvoyée par la méthode "findByName(nc)"
         return categoryRepository.findByName(nc).get(0);
     }
 
-    @Override
-    public List<Product> searchProductByCategoryName(String cn) {
-        List<Product> result = new ArrayList<>();
-        List<Category> categories = categoryRepository.findByName(cn);
 
-        for (Category c : categories) {
-            for (Product p : c.getProducts()) {
-                if (p.getQuantity() > 0) {
-                    result.add(p);
-                }
+   /* @Override
+    public List<Product> searchProductByCategoryName(String categoryName) {
+        Category category = categoryRepository.findByName(categoryName).get(0);
+
+        if (category == null) {
+            return Collections.emptyList();
+        }
+
+        List<Product> products = new ArrayList<>();
+        for (Product product : category.getProducts()) {
+            if (product.getQuantity() > 0) {
+                products.add(product);
             }
         }
-        return result;
+
+        return products;
+    }*/
+
+    @Override
+    public List<Product> searchProductByCategoryName(String categoryName) {
+        Category category = (Category) categoryRepository.findByName(categoryName);
+
+        if (category == null) {
+            return Collections.emptyList();
+        }
+
+        return productRepository.findProductByCategoryAndQuantityGreaterThanZero(category);
     }
+
+
+
+
+
 }
