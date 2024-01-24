@@ -1,15 +1,14 @@
-# Test technique
+<h2> Application de gestion des produits </h2>
+<b>Objectif :</b> Retourne les produits disponibles selon une catégorie donnée.
 
-Objectif : Retourne les produits disponibles selon une catégorie donnée.
-
-Outil de développement : <br/>
-Backend : Spring Boot 3.1.4, Maven 3.9.1  <br/>
-Frontend : Angular 14.2, Bootstrap 5.3 <br/> 
-Base de donné : MySQL  <br/>
+<b>Outil de développement : </b> <br/>
+Backend : <b> Spring Boot 3.1.4, Maven 3.9.1 </b> <br/>
+Frontend : <b> Angular 14.2, Bootstrap 5.3 </b> <br/> 
+Base de donné : <b> MySQL </b> <br/>
  <br/>
  
 Pour démarrer l'application,  suivez ces étapes :  <br/>
-1 - Clonez le dépôt GitHub en utilisant la commande suivante : git clone https://github.com/Zaghdoudii/CodeOnce-TestTechnique.git <br/>
-2 - Accédez au répertoire CodeOnce-TestTechnique dans votre terminal <br/>
-3 - Utilisez la commande docker-compose up pour démarrer les conteneurs Docker  <br/>
+1 - Clonez le dépôt GitHub en utilisant la commande suivante : git clone https://github.com/Zaghdoudii/Product-management-app <br/>
+2 - Accédez au répertoire Product-management-app dans votre terminal <br/>
+3 - Utilisez la commande docker-compose up pour démarrer les conteneurs Docker <br/>
 4 - Navigez sur : http://localhost:4200/ <br/>
